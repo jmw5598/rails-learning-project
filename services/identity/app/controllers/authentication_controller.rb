@@ -1,33 +1,30 @@
 class AuthenticationController < ApplicationController
   skip_before_action :authenticate_request
+  
+  def initialize (authentication_service = AuthenticationService.new)
+    puts "intialize auth controller"
+    @authentication_service = authentication_service
+  end
 
+  # POST - Log in user
   def login
-    @user = User.find_by_username(params[:username])
-    if @user&.authenticate(params[:password])
-      # TODO 
-      # - Issues refresh token with access token
-      claims = jwt_claims_from_user(@user)
-      token = jwt_encode(claims)
-      render json: build_authentication_payload(token, "TODO"), status: :ok
+    authenticated_user = 
+      @authentication_service.login(params[:username], params[:password])
+    if authenticated_user.present?
+      render json: authenticated_user, status: :ok
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
     end
   end
 
+  # POST - Refresh users access token from refresh token
   def refresh
-    # TODO
-    # - Check refresh token is valid
-    # - If refresh token is valid and token is valid but expired
-    # - Issue new token with refresh token
-    decoded = jwt_decode(params[:access_token])
-    puts decoded[]
-    token = jwt_decode(user_id: decoded["user_id"])
-    render json: build_authentication_payload(token, "TODO"), status: :ok
-  end
-
-  private
-    
-    def build_authentication_payload(access_token, refresh_token)
-      { access_token: access_token, refresh_token: refresh_token }
+    autenticated_user = 
+      @authentication_service.refresh(params[:access_token], params[:refresh_token])
+    if authenticated_user.present?
+      render json: authenticated_user, status: :ok
+    else
+      render json: { error: 'unauthorized' }, status: :unauthorized
     end
+  end
 end
