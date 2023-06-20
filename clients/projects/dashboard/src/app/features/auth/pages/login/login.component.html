@@ -1,0 +1,24 @@
+<h1>Welcome - Login</h1>
+<hr />
+<div>
+  <form novalidate [formGroup]="authFormGroup" (ngSubmit)="login(authFormGroup.value)">
+    <div *ngIf="errorResponse$ | async as errorResponse" style="margin-bottom: 1rem; background: #efefef; color: red">
+      <span>{{ errorResponse.error }}</span>
+    </div>
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin: 0; padding: 0;">Username</label>
+      <input type="text" formControlName="username" />
+    </div>
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block;">Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+    <div style="margin-bottom: 1rem;">
+      <input type="submit" value="Login" />
+    </div>
+  </form>
+</div>
+
+<hr />
+<h4>Auth Status</h4>
+<pre>{{ (authenticatedUser$ | async) | json }}</pre>
