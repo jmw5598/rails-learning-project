@@ -1,4 +1,4 @@
 module AuthenticationStatus
-  AUTHENTICATED = "authenticated"
-  NOT_AUTHENTICATED = "not authenticated"
+  AUTHORIZED = :authorized
+  UNAUTHORIZED = :unauthorized
 end

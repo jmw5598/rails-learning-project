@@ -2,7 +2,6 @@ class AuthenticationController < ApplicationController
   skip_before_action :authenticate_request
   
   def initialize (authentication_service = AuthenticationService.new)
-    puts "intialize auth controller"
     @authentication_service = authentication_service
   end
 

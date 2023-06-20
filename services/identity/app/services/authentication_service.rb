@@ -34,7 +34,7 @@ class AuthenticationService
       AuthenticatedUser.new(
         UserDetails.new(user),
         TokenPair.new(access_token, refresh_token),
-        AuthenticationStatus::AUTHENTICATED
+        AuthenticationStatus::AUTHORIZED
       )
     end
 end
