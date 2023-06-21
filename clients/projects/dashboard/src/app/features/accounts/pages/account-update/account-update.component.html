@@ -1,0 +1,12 @@
+Update an Account
+
+<br /><br />
+<form novalidate [formGroup]="updateAccountFormGroup" (ngSubmit)="update(updateAccountFormGroup.value)">
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block;">Name</label>
+    <input type="name" formControlName="name" />
+  </div>
+  <div style="margin-bottom: 1rem;">
+    <input type="submit" value="Update" />
+  </div>
+</form>

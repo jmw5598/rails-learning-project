@@ -1,0 +1,35 @@
+Welcome to the Accounts
+<br /><br />
+
+<ng-container *ngIf="accounts$ | async as accounts">
+  <table border="1">
+    <thead>
+      <tr>
+        <th style="padding: 0.5rem 1rem;">Created</th>
+        <th style="padding: 0.5rem 1rem;">Updated</th>
+        <th style="padding: 0.5rem 1rem;">Name</th>
+        <th style="padding: 0.5rem 1rem;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of accounts">
+        <td style="padding: 0.5rem 1rem;">{{ account?.created_at | date:'short' }}</td>
+        <td style="padding: 0.5rem 1rem;">{{ account?.updated_at | date:'short' }}</td>
+        <td style="padding: 0.5rem 1rem;">{{ account?.name }}</td>
+        <td style="padding: 0.5rem 1rem;">
+          <a [routerLink]="['/accounts', account.id, 'update' ]">Edit</a>&nbsp;
+          <a [routerLink]="[]">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #noAccountsTemplate>
+  <div style="padding: 1rem; background: #EFEFEF;">No accounts to display</div>
+</ng-template>
+
+<br />
+<div>
+  <button routerLink="/accounts/create">Create Account</button>
+</div>

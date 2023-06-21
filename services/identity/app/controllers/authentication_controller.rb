@@ -18,7 +18,7 @@ class AuthenticationController < ApplicationController
 
   # POST - Refresh users access token from refresh token
   def refresh
-    autenticated_user = 
+    authenticated_user = 
       @authentication_service.refresh(params[:access_token], params[:refresh_token])
     if authenticated_user.present?
       render json: authenticated_user, status: :ok

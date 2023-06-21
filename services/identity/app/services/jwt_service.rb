@@ -10,7 +10,7 @@ class JwtService
 
   def decode_token(token, validate = true)
     decoded = JWT.decode(token, SECRET_KEY, validate)
-    HashWithIndifferentAccess.new decoded
+    HashWithIndifferentAccess.new decoded[0]
   end
 
   # Creates jwt claims from user object

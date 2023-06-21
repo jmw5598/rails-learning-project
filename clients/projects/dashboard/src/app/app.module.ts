@@ -5,6 +5,7 @@ import { AkitaNgEffectsModule } from '@datorama/akita-ng-effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './features/core/core.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     AppRoutingModule,
     AkitaNgEffectsModule.forFeature([]),
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

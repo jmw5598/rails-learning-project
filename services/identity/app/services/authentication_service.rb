@@ -19,11 +19,7 @@ class AuthenticationService
     # TODO
     # - Issue new token with refresh token
     decoded = @jwt_service.decode_token(access_token, false)
-    return nil if decoded.present?
     user = User.find_by_username(decoded[:sub])
-
-    # if @refresh_token_service.validate_token(user.id, refresh_token)
-
     claims = @jwt_service.claims_from_user(user)
     token = @jwt_service.encode_token(claims)
     return build_authentication_result(user, token, "TODO")
