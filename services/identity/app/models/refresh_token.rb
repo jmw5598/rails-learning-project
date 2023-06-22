@@ -1,3 +1,3 @@
 class RefreshToken < ApplicationRecord
-  belongs_to :user, class_name: 'User'
+  belongs_to :users, class_name: 'User'
 end

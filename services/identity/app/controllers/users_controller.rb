@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   def create
     puts user_params
     @user = User.new(user_params)
-    puts @user;
     if @user.save
       render json: @user, status: :created
     else

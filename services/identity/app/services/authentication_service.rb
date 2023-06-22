@@ -6,23 +6,21 @@ class AuthenticationService
 
   def login(username, password)
     user = User.find_by_username(username)
-    # Instead of returing raise unauthorized exception?
-    # TODO refactor this..
-    return nil if !user&.authenticate(password)
+    return nil unless user&.authenticate(password)
     claims = @jwt_service.claims_from_user(user)
     access_token = @jwt_service.encode_token(claims)
-    refresh_token = @refresh_token_service.find_or_generate(user.id)
-    return build_authentication_result(user, access_token, refresh_token[:token])
+    refresh_token = @refresh_token_service.find_or_create(user.id)
+    build_authentication_result(user, access_token, refresh_token.token)
   end
 
   def refresh(access_token, refresh_token)
-    # TODO
-    # - Issue new token with refresh token
     decoded = @jwt_service.decode_token(access_token, false)
+    valid_refresh_token = @refresh_token_service.validate_token(decoded[:user_id], refresh_token)
+    return nil unless valid_refresh_token.present?
     user = User.find_by_username(decoded[:sub])
     claims = @jwt_service.claims_from_user(user)
     token = @jwt_service.encode_token(claims)
-    return build_authentication_result(user, token, "TODO")
+    build_authentication_result(user, token, valid_refresh_token.token)
   end
 
   private 
